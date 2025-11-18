@@ -1,0 +1,43 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+	<PropertyGroup>
+		<TargetFrameworks>net48;net9.0-windows</TargetFrameworks>
+		<OutputType>Library</OutputType>
+		<RootNamespace>Sys</RootNamespace>
+		<AssemblyName>Sys</AssemblyName>
+		<Nullable>enable</Nullable>
+		<ImplicitUsings>enable</ImplicitUsings>
+		<LangVersion>latest</LangVersion>
+		<AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+		<PolySharpExcludeGeneratedTypes>System.Diagnostics.CodeAnalysis.UnscopedRefAttribute</PolySharpExcludeGeneratedTypes>
+		<PolySharpIncludeRuntimeSupportedAttributes>true</PolySharpIncludeRuntimeSupportedAttributes>
+		<SupportedOSPlatformVersion>6.0</SupportedOSPlatformVersion>
+	</PropertyGroup>
+
+	<!-- 排除旧项目中标记为 None 的 .cs 文件，避免被 SDK 默认编译 -->
+	<ItemGroup>
+		<None Include="Com\Reg\_REG_LUID.cs;Com\Reg\_REG_LUID_AND_ATTRIBUTES.cs;Com\Reg\_REG_TOKEN_PRIVILEGES.cs;Com\WindowsControls\_DrawTextConstants.cs;Com\WindowsControls\_POINT.cs;Com\WindowsControls\_POP_MENU.cs;Com\WindowsControls\_RDW.cs;Com\WindowsControls\_RECT.cs;Com\WindowsControls\_ShowWindowValue.cs;Com\WindowsControls\Font\_FW.cs;Com\WindowsControls\Font\_LOG_FONT.cs;Com\Time\_FILETIME.cs;Com\Time\_SYSTEMTIME.cs" />
+		<Compile Remove="@(None)" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<Content Include="NativeMethods.txt" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<PackageReference Include="Microsoft.Windows.CsWin32" Version="0.3.106" />
+		<PackageReference Include="System.IO.Compression" Version="4.3.0" />
+		<PackageReference Include="System.Runtime.CompilerServices.Unsafe" Version="6.1.2" />
+	</ItemGroup>
+
+	<!-- Windows 桌面引用仅在 net9.0-windows 目标下需要（若编译时提示缺少 Windows 桌面引用可启用） -->
+	<ItemGroup Condition=" '$(TargetFramework)' == 'net9.0-windows' ">
+		<FrameworkReference Include="Microsoft.WindowsDesktop.App" />
+	</ItemGroup>
+	<ItemGroup Condition=" '$(TargetFramework)' == 'net48' ">
+		<PackageReference Include="PolySharp" Version="1.15.0" />
+		<PackageReference Include="System.Memory" Version="4.6.3" />
+	</ItemGroup>
+	<ItemGroup>
+	  <Folder Include="Properties\" />
+	</ItemGroup>
+</Project>
