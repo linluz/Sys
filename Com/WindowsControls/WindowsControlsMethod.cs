@@ -4,6 +4,7 @@ using System.Runtime.Versioning;
 using Sys.Com.Att;
 using Sys.Com.Key;
 using Sys.Com.WindowsControls.Font;
+// ReSharper disable UnusedMember.Global
 
 namespace Sys.Com.WindowsControls
 {
@@ -54,7 +55,7 @@ namespace Sys.Com.WindowsControls
         /// <param name="lParam">消息的附加参数</param>
         /// <returns>消息处理结果</returns>
         public static int SendMessageLNG(int hWnd, SendMsgValue msg, uint wParam,int lParam)
-            => (int)(IntPtr)SendMessageLNG((HWND)(IntPtr)hWnd, msg, (UIntPtr)wParam, lParam);
+            => (int)(IntPtr)SendMessageLNG((HWND)(IntPtr)hWnd, msg, (UIntPtr)wParam, (IntPtr)lParam);
         #endregion
 
         /// <summary>
@@ -248,8 +249,8 @@ namespace Sys.Com.WindowsControls
         /// SB_VERT 检索滚动框在窗口的标准垂直滚动条中的位置。
         /// </param>
         /// <param name="nPos">指定滚动框的新位置。 位置必须在滚动范围内。</param>
-        /// <param name="bRedraw">指定是否重绘滚动条以反映新的滚动框位置。 如果此参数为 TRUE，则重绘滚动条。 如果为 FALSE，则不重绘滚动条。</param>
-        /// <returns>如果函数成功，则返回值为滚动框的上一位置。如果函数失败，则返回值为零。</returns>
+        /// <param name="bRedraw">指定是否重绘滚动条以反映新滚动框位置。 如果此参数为 TRUE，则重绘滚动条。 如果为 FALSE，则不重绘滚动条。</param>
+        /// <returns>如果函数成功，则返回值为滚动框的上一个位置。如果函数失败，则返回值为零。</returns>
         [Obsolete("SetScrollPos is obsolete, please use SetScrollInfo instead.")]
         internal static int SetScrollPos(HWND hwnd, SCROLLBAR_CONSTANTS nBar, int nPos, bool bRedraw)
             => PInvoke.SetScrollPos(hwnd, nBar, nPos, bRedraw);
@@ -420,7 +421,7 @@ namespace Sys.Com.WindowsControls
 
         /// <summary>
         /// 如果指定的窗口是控件，则函数将检索控件内文本的长度。
-        /// 但是 GetWindowTextLength 无法检索另一个应用程序中编辑控件的文本长度。 </see>
+        /// 但是 GetWindowTextLength 无法检索另一个应用程序中编辑控件的文本长度。
         /// </summary>
         /// <param name="hwnd">窗口或控件的句柄。</param>
         /// <returns>如果函数成功，则返回值为文本的长度（以字符为单位）。 在某些情况下，此值可能大于文本的长度， (请参阅备注) 。如果窗口没有文本，则返回值为零。</returns>
@@ -429,7 +430,7 @@ namespace Sys.Com.WindowsControls
 
         /// <summary>
         /// 如果指定的窗口是控件，则函数将检索控件内文本的长度。
-        /// 但是 GetWindowTextLength 无法检索另一个应用程序中编辑控件的文本长度。 </see>
+        /// 但是 GetWindowTextLength 无法检索另一个应用程序中编辑控件的文本长度。
         /// </summary>
         /// <param name="hwnd">窗口或控件的句柄。</param>
         /// <returns>如果函数成功，则返回值为文本的长度（以字符为单位）。 在某些情况下，此值可能大于文本的长度， (请参阅备注) 。如果窗口没有文本，则返回值为零。</returns>
@@ -460,7 +461,6 @@ namespace Sys.Com.WindowsControls
         /// 但是， GetWindowText 无法检索另一个应用程序中控件的文本。
         /// </summary>
         /// <param name="hwnd">包含文本的窗口或控件的句柄。</param>
-        /// <param name="lpString">将接收文本的缓冲区。 如果字符串长或长于缓冲区，则字符串将被截断并终止为 null 字符。</param>
         /// <param name="cch">要复制到缓冲区的最大字符数，包括 null 字符。 如果文本超出此限制，则会将其截断。</param>
         /// <returns>如果函数成功，则返回值为复制的字符串的长度（以字符为单位），不包括终止 null 字符。 如果窗口没有标题栏或文本，如果标题栏为空，或者窗口或控件句柄无效，则返回值为零。</returns>
         public static string GetWindowText(int hwnd, int cch)
